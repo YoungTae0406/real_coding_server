@@ -11,7 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
-@RequiredArgsConstructor // 내가 생성한 필드대로 생성자를 만들어 줌
+@RequiredArgsConstructor
+
 public class PostController {
     private final PostService postService;
 
@@ -24,10 +25,12 @@ public class PostController {
     public ResponseEntity<List<Post>> getPosts() {
         return ResponseEntity.ok(postService.getPosts());
     }
+
     @GetMapping("/{postId}")
     public ResponseEntity<Post> getPost(@PathVariable("postId") Integer postId) {
         return ResponseEntity.ok(postService.getPost(postId).orElse(null));
     }
+
     @PutMapping("/{postId}")
     public ResponseEntity<Post> updatePost(@PathVariable("postId") Integer postId,
                                            @RequestBody PostRequest postRequest) {
@@ -35,6 +38,8 @@ public class PostController {
     }
     @DeleteMapping("/{postId}")
     public ResponseEntity<Void> deletePost(@PathVariable("postId") Integer postId){
+
+
         postService.deletePost(postId);
 
         return ResponseEntity.noContent().build();
